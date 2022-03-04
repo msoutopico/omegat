@@ -91,10 +91,12 @@ public class ImportFromAutoTMX {
                         // TMX entry is an alternative translation that does not match this STE.
                         continue;
                     }
-                    if (isEnforcedTMX && (!existTranslation.isTranslated()
-                            || existTranslation.linked != TMXEntry.ExternalLinked.xENFORCED)) {
-                        // If there's no translation or if the existing translation doesn't
-                        // come from an enforced TM.
+                    if (isEnforcedTMX &&
+                          (!existTranslation.isTranslated()
+                          || existTranslation.linked != TMXEntry.ExternalLinked.xENFORCED
+                          || existTranslation.defaultTranslation)) {
+                        // If there's no translation, or if the existing translation doesn't
+                        // come from an enforced TM, or if the existing translation is default (not alt)
                         setTranslation(ste, e, isDefaultTranslation, TMXEntry.ExternalLinked.xENFORCED);
                     } else if (!existTranslation.isTranslated()) {
                         // default translation not exist - use from auto tmx
